@@ -1,0 +1,485 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#e8d8bd">
+<title>A Sincere Apology</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at top,#fff8e9,transparent 55%),
+    linear-gradient(135deg,#e9d8bc,#d9c2a0);
+  font-family:Georgia,serif;
+  color:#654c36;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:25px 15px;
+  overflow-x:hidden;
+}
+
+.container{
+  width:100%;
+  max-width:460px;
+  text-align:center;
+}
+
+.top-label{
+  font-size:11px;
+  letter-spacing:4px;
+  color:#9a7956;
+  text-transform:uppercase;
+}
+
+h1{
+  font-size:36px;
+  font-weight:normal;
+  margin:15px 0 10px;
+}
+
+.subtitle{
+  color:#92785c;
+  font-size:14px;
+  line-height:1.8;
+  margin-bottom:35px;
+}
+
+/* ENVELOPE */
+
+.envelope-wrapper{
+  perspective:1000px;
+  width:310px;
+  max-width:100%;
+  height:205px;
+  margin:0 auto;
+  cursor:pointer;
+}
+
+.envelope{
+  position:relative;
+  width:100%;
+  height:100%;
+  background:#c99f70;
+  border-radius:5px;
+  box-shadow:0 18px 30px #6b4b2c35;
+}
+
+.paper-preview{
+  position:absolute;
+  width:85%;
+  height:90%;
+  left:7.5%;
+  bottom:5%;
+  background:#fff9e9;
+  transition:.9s;
+}
+
+.paper-preview::after{
+  content:"A Letter For You";
+  position:absolute;
+  top:35px;
+  left:0;
+  width:100%;
+  font-style:italic;
+  color:#987552;
+  font-size:18px;
+}
+
+.front{
+  position:absolute;
+  inset:0;
+  background:#d8b58b;
+  clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);
+  z-index:2;
+}
+
+.left{
+  position:absolute;
+  inset:0;
+  background:#c99f70;
+  clip-path:polygon(0 0,54% 55%,0 100%);
+  z-index:3;
+}
+
+.right{
+  position:absolute;
+  inset:0;
+  background:#d0a779;
+  clip-path:polygon(100% 0,46% 55%,100% 100%);
+  z-index:3;
+}
+
+.flap{
+  position:absolute;
+  inset:0;
+  background:#e5c8a0;
+  clip-path:polygon(0 0,100% 0,50% 60%);
+  transform-origin:top;
+  transition:transform .8s ease;
+  z-index:5;
+}
+
+.seal{
+  position:absolute;
+  top:52%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:53px;
+  height:53px;
+  border-radius:50%;
+  background:#946c4b;
+  color:#fff5e4;
+  display:grid;
+  place-items:center;
+  font-size:11px;
+  letter-spacing:1px;
+  z-index:6;
+  box-shadow:0 4px 10px #0002;
+  transition:.4s;
+}
+
+.envelope.open .flap{
+  transform:rotateX(180deg);
+  z-index:0;
+}
+
+.envelope.open .paper-preview{
+  transform:translateY(-100px);
+}
+
+.envelope.open .seal{
+  opacity:0;
+}
+
+.instruction{
+  margin-top:25px;
+  font-size:13px;
+  color:#987957;
+  letter-spacing:1px;
+  animation:blink 2s infinite;
+}
+
+@keyframes blink{
+  50%{opacity:.45;}
+}
+
+/* LETTER */
+
+.letter{
+  display:none;
+  position:relative;
+  margin:35px auto 0;
+  padding:35px 25px;
+  width:100%;
+  text-align:left;
+  background:
+    repeating-linear-gradient(
+      transparent 0px,
+      transparent 34px,
+      #a98d6a18 35px
+    ),
+    #fff9e9;
+  border:1px solid #dfc8a6;
+  box-shadow:0 15px 35px #70502d25;
+  animation:letterOpen 1s ease;
+}
+
+.letter.show{
+  display:block;
+}
+
+@keyframes letterOpen{
+  from{
+    opacity:0;
+    transform:translateY(35px) scale(.96);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+.letter-heading{
+  text-align:center;
+  font-size:25px;
+  font-weight:normal;
+  margin-bottom:25px;
+  color:#77583c;
+}
+
+.letter p{
+  font-size:15px;
+  line-height:2;
+  margin-bottom:17px;
+  color:#70583f;
+}
+
+.highlight{
+  text-align:center;
+  padding:17px 10px;
+  margin:22px 0;
+  border-top:1px solid #d9c4a4;
+  border-bottom:1px solid #d9c4a4;
+  font-size:19px;
+  color:#956c48;
+  font-style:italic;
+}
+
+.signature{
+  text-align:right;
+  margin-top:25px;
+  line-height:2;
+  color:#856748;
+  font-style:italic;
+}
+
+.end-note{
+  text-align:center;
+  font-size:12px;
+  color:#a18a6d;
+  margin-top:25px;
+}
+
+.replay{
+  display:none;
+  margin:25px auto;
+  padding:13px 25px;
+  border:1px solid #a7835c;
+  background:transparent;
+  color:#75573a;
+  border-radius:30px;
+  cursor:pointer;
+  font-family:Georgia,serif;
+  transition:.3s;
+}
+
+.replay.show{
+  display:block;
+}
+
+.replay:hover{
+  background:#a7835c;
+  color:white;
+}
+
+.footer{
+  font-size:11px;
+  color:#9b8060;
+  margin-top:35px;
+  letter-spacing:1px;
+}
+
+@media(max-width:380px){
+  h1{font-size:30px;}
+  .letter{padding:25px 19px;}
+  .letter p{font-size:14px;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="top-label">
+    A MESSAGE FROM A FRIEND
+  </div>
+
+  <h1>A Little Apology</h1>
+
+  <p class="subtitle">
+    Sometimes we make mistakes.<br>
+    Sometimes a simple sorry means a lot.
+  </p>
+
+  <div class="envelope-wrapper" id="envelopeWrapper">
+
+    <div class="envelope" id="envelope">
+
+      <div class="paper-preview"></div>
+
+      <div class="front"></div>
+      <div class="left"></div>
+      <div class="right"></div>
+
+      <div class="flap"></div>
+
+      <div class="seal">
+        FRIEND
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="instruction" id="instruction">
+    CLICK TO OPEN YOUR LETTER
+  </div>
+
+  <!-- LETTER CONTENT -->
+
+  <div class="letter" id="letter">
+
+    <h2 class="letter-heading">
+      Dear Friend,
+    </h2>
+
+    <p>
+      I don't know exactly how to start,
+      but I really want to say something
+      from my heart.
+    </p>
+
+    <p>
+      सबसे पहले, मैं तुमसे दिल से माफी मांगता हूँ।
+      अगर मैंने कभी तुमसे गलत तरीके से बात की,
+      कोई गलत बात कही या अपनी बातों से तुम्हें
+      बुरा महसूस करवाया, तो I'm genuinely sorry.
+    </p>
+
+    <p>
+      तुम मेरी एक अच्छी दोस्त हो।
+      तुमसे सामान्य बातें करना, हँसना और
+      अपनी बातें शेयर करना मुझे अच्छा लगता है।
+      तुम्हारी दोस्ती मेरे लिए मायने रखती है।
+    </p>
+
+    <p>
+      शायद मैं अपनी दोस्ती की भावनाओं को
+      गलत तरीके से समझ बैठा था।
+      मुझे एहसास है कि मेरी किसी बात से
+      तुम्हें परेशानी हुई होगी।
+      उसके लिए मैं अपनी गलती स्वीकार करता हूँ।
+    </p>
+
+    <div class="highlight">
+      I'm truly sorry for everything.
+    </div>
+
+    <p>
+      मेरा कभी भी तुम्हें दुख पहुँचाने या
+      असहज महसूस करवाने का इरादा नहीं था।
+      अगर मेरी किसी बात से तुम्हें बुरा लगा,
+      तो उसके लिए मैं दिल से माफी मांगता हूँ।
+    </p>
+
+    <p>
+      मैं तुम्हारी और तुम्हारी feelings की
+      इज्जत करता हूँ।
+      मैं तुमसे किसी तरह की उम्मीद नहीं रखता।
+      बस चाहता हूँ कि हमारी दोस्ती में
+      पहले जैसी सहजता और सम्मान बना रहे।
+    </p>
+
+    <p>
+      मैं अपनी गलती समझता हूँ और आगे से
+      अपनी बातों का ज्यादा ध्यान रखूँगा।
+      तुम्हें जवाब देने की कोई जल्दी नहीं है।
+    </p>
+
+    <p>
+      बस इतना कहना था कि
+      <b>I'm really, genuinely sorry.</b>
+    </p>
+
+    <div class="signature">
+      With sincere apologies,<br>
+      Your Friend.
+    </div>
+
+    <div class="end-note">
+      This note is only about friendship and a sincere apology.
+    </div>
+
+  </div>
+
+  <button class="replay" id="replay">
+    Read The Letter Again
+  </button>
+
+  <div class="footer">
+    A SIMPLE NOTE • A SINCERE APOLOGY
+  </div>
+
+</div>
+
+<script>
+
+const envelope =
+document.getElementById("envelope");
+
+const letter =
+document.getElementById("letter");
+
+const instruction =
+document.getElementById("instruction");
+
+const replay =
+document.getElementById("replay");
+
+let opened=false;
+
+envelope.addEventListener("click",()=>{
+
+  if(opened) return;
+
+  opened=true;
+
+  envelope.classList.add("open");
+
+  instruction.innerText =
+  "YOUR LETTER IS OPENING...";
+
+  setTimeout(()=>{
+
+    letter.classList.add("show");
+
+    replay.classList.add("show");
+
+    instruction.innerText =
+    "A MESSAGE ABOUT FRIENDSHIP";
+
+    letter.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+  },950);
+
+});
+
+replay.addEventListener("click",()=>{
+
+  opened=false;
+
+  letter.classList.remove("show");
+
+  replay.classList.remove("show");
+
+  envelope.classList.remove("open");
+
+  instruction.innerText =
+  "CLICK TO OPEN YOUR LETTER";
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+});
+
+</script>
+
+</body>
+</html>
